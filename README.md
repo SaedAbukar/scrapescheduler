@@ -12,6 +12,3 @@
    npm install
    npm run dev
    ```
-
-2. **Access the App**  
-   Open your browser and visit: [http://localhost:3000](http://localhost:3000)

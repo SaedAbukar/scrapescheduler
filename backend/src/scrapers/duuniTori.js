@@ -68,7 +68,13 @@ const duuniTori = async (city = "", searchTerm = "", totalPages = 1) => {
   let browser;
 
   try {
+    const browserPath =
+      process.env.CHROMIUM_PATH ||
+      "/opt/render/.cache/puppeteer/chrome/linux-129.0.6668.89/chrome-linux/chrome";
+
     const browser = await puppeteer.launch({
+      headless: true,
+      executablePath: browserPath,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
     const page = await browser.newPage();

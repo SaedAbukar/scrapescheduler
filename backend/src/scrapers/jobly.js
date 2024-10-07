@@ -10,7 +10,18 @@ const jobly = async (city = "", searchTerm = "", totalPages = 1) => {
   let browser;
 
   try {
-    browser = await puppeteer.launch({ headless: false }); // Launch Puppeteer
+    // Specify the path to Chromium.
+    // Dynamically use the custom Chromium path in the Render or local environment.
+    const browserPath =
+      process.env.CHROMIUM_PATH ||
+      "/opt/render/.cache/puppeteer/chrome/linux-129.0.6668.89/chrome-linux/chrome"; // Example path in Render
+
+    // Launch the browser with executable path
+    browser = await puppeteer.launch({
+      headless: true, // Set to true if running on a server
+      executablePath: browserPath, // Path to custom Chromium
+      args: ["--no-sandbox", "--disable-setuid-sandbox"], // Necessary arguments for headless environments
+    });
     const page = await browser.newPage();
 
     const baseURL = `https://www.jobly.fi/tyopaikat`;

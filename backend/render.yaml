@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: puppeteer-scraper-service
+    env: node
+    plan: free
+    buildCommand: |
+      apt-get update
+      apt-get install -y libnss3 libx11-xcb1 libxcomposite1 fonts-liberation
+      npx puppeteer browsers install chrome
+      npm install
+    startCommand: npm start
+    envVars:
+      - key: PUPPETEER_CACHE_DIR
+        value: "/opt/render/.cache/puppeteer"

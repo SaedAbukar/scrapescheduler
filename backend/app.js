@@ -31,6 +31,11 @@ connectDB();
 
 scrapeScheduler();
 
+// API running route
+app.get("/", (req, res) => {
+  res.status(200).send("API is running");
+});
+
 // Example route that throws an error
 app.get("/error", (req, res, next) => {
   // Trigger an error

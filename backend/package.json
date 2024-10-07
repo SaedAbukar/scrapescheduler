@@ -31,7 +31,7 @@
     "node-cron": "^3.0.3",
     "node-schedule": "^2.1.1",
     "openai": "^4.67.1",
-    "puppeteer": "^23.3.0",
+    "puppeteer": "^23.5.1",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "swagger-jsdoc": "^6.2.8",

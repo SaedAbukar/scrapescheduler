@@ -1,5 +1,7 @@
+const { executablePath } = require("puppeteer");
 const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+require("dotenv").config();
 
 puppeteer.use(StealthPlugin());
 
@@ -68,7 +70,18 @@ const duuniTori = async (city = "", searchTerm = "", totalPages = 1) => {
   let browser;
 
   try {
-    browser = await puppeteer.launch({ headless: false });
+    browser = await puppeteer.launch({
+      args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--single-process",
+        "--no-zygote",
+      ],
+      executablePath:
+        process.env.NODE_ENV === "production"
+          ? process.env.PUPPETEER_EXECUTABLE_PATH
+          : puppeteer.executablePath(),
+    });
     const page = await browser.newPage();
 
     // Base URL and query parameters setup

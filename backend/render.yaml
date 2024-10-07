@@ -1,14 +1,13 @@
+# This file configures the Render service for your Puppeteer app
+version: 1
 services:
   - type: web
-    name: puppeteer-scraper-service
+    name: my-puppeteer-app # Replace with your app name
     env: node
-    plan: free
-    buildCommand: |
-      apt-get update
-      apt-get install -y libnss3 libx11-xcb1 libxcomposite1 fonts-liberation
-      npx puppeteer browsers install chrome
-      npm install
-    startCommand: npm start
+    plan: free # Choose your plan (free, starter, etc.)
+    buildCommand: npm install
+    startCommand: node src/index.js # Replace with your entry point
     envVars:
-      - key: PUPPETEER_CACHE_DIR
-        value: "/opt/render/.cache/puppeteer"
+      - key: CHROMIUM_PATH
+        value: /opt/render/.cache/puppeteer/chrome/linux-129.0.6668.89/chrome-linux/chrome # Set the correct path to Chromium
+    prebuildCommand: npx puppeteer browsers install chrome # Install Chromium before the build starts

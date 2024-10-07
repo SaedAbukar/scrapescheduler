@@ -65,18 +65,45 @@ const fetchJobDetailsSequentially = async (jobUrls, browser) => {
 
 // Main function to scrape jobs from duunitori.fi
 const duuniTori = async (city = "", searchTerm = "", totalPages = 1) => {
-  let browser;
+  console.log("Starting Puppeteer...");
+
+  // Determine the cache directory
+  const cacheDir =
+    process.env.PUPPETEER_CACHE_DIR || "/opt/render/.cache/puppeteer/chrome/";
+
+  // Check if the directory exists
+  if (!fs.existsSync(cacheDir)) {
+    console.error("Puppeteer cache directory does not exist:", cacheDir);
+    process.exit(1);
+  }
+
+  // Find the version directory
+  const versions = fs
+    .readdirSync(cacheDir)
+    .filter((dir) => fs.statSync(path.join(cacheDir, dir)).isDirectory());
+  let browserPath = null;
+
+  for (const version of versions) {
+    const chromePath = path.join(cacheDir, version, "chrome-linux", "chrome");
+    if (fs.existsSync(chromePath)) {
+      browserPath = chromePath;
+      console.log("Found Chrome executable at:", browserPath);
+      break;
+    }
+  }
+
+  if (!browserPath) {
+    console.error("Could not find Chrome in the Puppeteer cache.");
+    process.exit(1); // Exit if Chrome is not found
+  }
 
   try {
-    const browserPath =
-      process.env.CHROMIUM_PATH ||
-      "/opt/render/.cache/puppeteer/chrome/linux-*/chrome-linux/chrome";
-
     const browser = await puppeteer.launch({
       headless: true,
       executablePath: browserPath,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
+    console.log("Puppeteer launched successfully.");
     const page = await browser.newPage();
 
     // Base URL and query parameters setup

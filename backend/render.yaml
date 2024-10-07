@@ -11,6 +11,8 @@ services:
       apt-get install -y libnss3 libx11-xcb1 libxcomposite1 fonts-liberation
       echo "Installing Puppeteer browsers..."
       npx puppeteer browsers install chrome || { echo 'Puppeteer browser install failed'; exit 1; }
+      echo "Contents of Puppeteer cache directory:"
+      ls -la /opt/render/.cache/puppeteer/chrome/ || { echo 'Failed to list Puppeteer cache directory'; exit 1; }
       echo "Installing Node dependencies..."
       npm install || { echo 'Node dependencies install failed'; exit 1; }
     startCommand: npm start
@@ -18,4 +20,4 @@ services:
       - key: PUPPETEER_CACHE_DIR
         value: "/opt/render/.cache/puppeteer"
       - key: CHROMIUM_PATH
-        value: /opt/render/.cache/puppeteer/chrome/linux-129.0.6668.89/chrome-linux/chrome
+        value: "/opt/render/.cache/puppeteer/chrome/linux-*/*/chrome" # Use wildcard for dynamic path

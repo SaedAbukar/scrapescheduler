@@ -70,18 +70,7 @@ const duuniTori = async (city = "", searchTerm = "", totalPages = 1) => {
   let browser;
 
   try {
-    browser = await puppeteer.launch({
-      args: [
-        "--disable-setuid-sandbox",
-        "--no-sandbox",
-        "--single-process",
-        "--no-zygote",
-      ],
-      executablePath:
-        process.env.NODE_ENV === "production"
-          ? process.env.PUPPETEER_EXECUTABLE_PATH
-          : puppeteer.executablePath(),
-    });
+    browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
 
     // Base URL and query parameters setup

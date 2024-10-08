@@ -6,24 +6,24 @@ const scrapeJobs = require("./scraperManager"); // Adjust path if needed
 // Define the list of search terms and cities
 const searchTerms = [
   "design",
-  // "marketing",
-  // "technology",
-  // "finance",
-  // "teknologia",
-  // "education",
-  // "finanssi",
-  // "business",
-  // "markkinointi",
-  // "opetus",
-  // "software",
-  // "ohjelmointi",
-  // "it",
-  // "myyjä",
-  // "asiakaspalvelu",
-  // "",
+  "marketing",
+  "technology",
+  "finance",
+  "teknologia",
+  "education",
+  "finanssi",
+  "business",
+  "markkinointi",
+  "opetus",
+  "software",
+  "ohjelmointi",
+  "it",
+  "myyjä",
+  "asiakaspalvelu",
+  "",
 ];
 
-const cities = ["helsinki"];
+const cities = ["helsinki", "suomi", ""];
 
 const fiveseconds = "*/5 * * * * *";
 const thirtyseconds = "*/30 * * * * *";
@@ -33,7 +33,7 @@ const threehours = "0 */5 * * *";
 // Function to set up and run the cron job
 const startJobScrapingCron = () => {
   // Schedule job scraping every 5 hours
-  cron.schedule(thirtyseconds, async () => {
+  cron.schedule(threehours, async () => {
     console.log("Running the scheduled scraping job...");
 
     try {

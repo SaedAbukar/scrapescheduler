@@ -14,9 +14,9 @@ const scrapeJobs = async (city, searchTerm, page) => {
   try {
     const results = await Promise.allSettled([
       // duuniTori(city, searchTerm, page),
-      // indeed(city, searchTerm, page),
+      indeed(city, searchTerm, page),
       // jobly(city, searchTerm, page),
-      oikotie(city, searchTerm),
+      // oikotie(city, searchTerm),
       // tePalvelut(city, searchTerm),
     ]);
 

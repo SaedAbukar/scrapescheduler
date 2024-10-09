@@ -12,7 +12,7 @@ const scrapeJobDescription = async (jobUrl, browser) => {
     const jobPage = await browser.newPage(); // Open a new tab for each job
     await jobPage.goto(jobUrl, {
       waitUntil: "domcontentloaded",
-      timeout: 60000,
+      timeout: 120000,
     });
 
     const jobDetails = await jobPage.evaluate(() => {
@@ -72,7 +72,7 @@ const indeed = async (city = "", searchTerm = "", totalPages = 10) => {
     const browser = await puppeteer.launch({
       headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
-      timeout: 60000, // Increase timeout to 60 seconds
+      timeout: 120000, // Increase timeout to 60 seconds
     });
     const page = await browser.newPage();
 
@@ -100,20 +100,20 @@ const indeed = async (city = "", searchTerm = "", totalPages = 10) => {
       console.log(`Navigating to URL: ${pageURL}`);
       await page.goto(pageURL, {
         waitUntil: "domcontentloaded",
-        timeout: 60000,
+        timeout: 120000,
       });
 
-      // Handle the cookies modal (if it appears)
-      try {
-        const cookiesAcceptButtonSelector = "#onetrust-accept-btn-handler";
-        await page.waitForSelector(cookiesAcceptButtonSelector, {
-          timeout: 5000,
-        });
-        await page.click(cookiesAcceptButtonSelector);
-        console.log("Cookies modal accepted");
-      } catch (err) {
-        console.log("No cookies modal found or failed to interact with it");
-      }
+      // // Handle the cookies modal (if it appears)
+      // try {
+      //   const cookiesAcceptButtonSelector = "#onetrust-accept-btn-handler";
+      //   await page.waitForSelector(cookiesAcceptButtonSelector, {
+      //     timeout: 5000,
+      //   });
+      //   await page.click(cookiesAcceptButtonSelector);
+      //   console.log("Cookies modal accepted");
+      // } catch (err) {
+      //   console.log("No cookies modal found or failed to interact with it");
+      // }
 
       // Scrape the job listings for the current page
       const jobs = await page.evaluate((searchTerm) => {

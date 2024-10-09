@@ -12,7 +12,7 @@ const scrapeOikotieJobs = async (city, searchTerm) => {
   browser = await puppeteer.launch({
     headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    timeout: 60000, // Increase timeout to 60 seconds
+    timeout: 120000, // Increase timeout to 60 seconds
   });
   const page = await browser.newPage();
 
@@ -32,22 +32,22 @@ const scrapeOikotieJobs = async (city, searchTerm) => {
 
   // Navigate to the job listings page
   await page.goto(url, {
-    waitUntil: "networkidle2",
-    timeout: 60000,
+    waitUntil: "domcontentloaded",
+    timeout: 120000,
   });
 
   // Wait for job postings to load
   // await page.waitForSelector('article.job-ad-list-item');
 
-  try {
-    const cookiesAcceptButtonSelector =
-      'button[data-control-name="accept_cookie"]';
-    await page.waitForSelector(cookiesAcceptButtonSelector, { timeout: 5000 });
-    await page.click(cookiesAcceptButtonSelector); // Accept cookies
-    console.log("Cookies accepted");
-  } catch (err) {
-    console.log("No cookie consent modal found");
-  }
+  // try {
+  //   const cookiesAcceptButtonSelector =
+  //     'button[data-control-name="accept_cookie"]';
+  //   await page.waitForSelector(cookiesAcceptButtonSelector, { timeout: 5000 });
+  //   await page.click(cookiesAcceptButtonSelector); // Accept cookies
+  //   console.log("Cookies accepted");
+  // } catch (err) {
+  //   console.log("No cookie consent modal found");
+  // }
 
   // Extract job postings and their links
   const jobPostings = await page.evaluate(() => {
@@ -78,8 +78,8 @@ const scrapeOikotieJobs = async (city, searchTerm) => {
   const getJobDetails = async (jobPageUrl) => {
     const jobPage = await browser.newPage();
     await jobPage.goto(jobPageUrl, {
-      waitUntil: "networkidle2",
-      timeout: 60000,
+      waitUntil: "domcontentloaded",
+      timeout: 120000,
     });
 
     // Extract the job description

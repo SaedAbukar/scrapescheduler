@@ -8,17 +8,11 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const jobList = [];
 
 const scrapeOikotieJobs = async (city, searchTerm) => {
+  let browser;
   browser = await puppeteer.launch({
     headless: true,
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage", // Disable /dev/shm usage to prevent shared memory issues
-      "--disable-gpu", // Disable GPU if it's not necessary
-      "--single-process", // Run in a single process
-      "--no-zygote", // Disable the zygote process for performance reasons
-      "--window-size=1920x1080", // Optionally specify window size for a smaller footprint
-    ],
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    timeout: 60000, // Increase timeout to 60 seconds
   });
   const page = await browser.newPage();
 

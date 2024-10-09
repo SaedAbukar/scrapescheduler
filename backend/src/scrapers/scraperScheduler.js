@@ -5,9 +5,9 @@ const scrapeJobs = require("./scraperManager"); // Adjust path if needed
 
 // Define the list of search terms and cities
 const searchTerms = [
+  "technology",
   "design",
   "marketing",
-  "technology",
   "finance",
   "teknologia",
   "education",
@@ -33,7 +33,7 @@ const threehours = "0 */3 * * *";
 // Function to set up and run the cron job
 const startJobScrapingCron = () => {
   // Schedule job scraping every 5 hours
-  cron.schedule(fivehours, async () => {
+  cron.schedule(threehours, async () => {
     console.log("Running the scheduled scraping job...");
 
     try {

@@ -11,7 +11,10 @@ const jobList = [];
 const scrapeJobDetails = async (jobUrl, browser) => {
   try {
     const jobPage = await browser.newPage(); // Open a new tab for each job
-    await jobPage.goto(jobUrl, { waitUntil: "domcontentloaded" });
+    await jobPage.goto(jobUrl, {
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
+    });
 
     const jobDetails = await jobPage.evaluate(() => {
       const descriptionElement = document.querySelector(".description-box");

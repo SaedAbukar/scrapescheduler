@@ -66,7 +66,18 @@ const fetchJobs = async (jobUrls, browser) => {
 const indeed = async (city = "", searchTerm = "", totalPages = 10) => {
   let browser;
   try {
-    browser = await puppeteer.launch({ headless: true });
+    browser = await puppeteer.launch({
+      headless: true,
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage", // Disable /dev/shm usage to prevent shared memory issues
+        "--disable-gpu", // Disable GPU if it's not necessary
+        "--single-process", // Run in a single process
+        "--no-zygote", // Disable the zygote process for performance reasons
+        "--window-size=1920x1080", // Optionally specify window size for a smaller footprint
+      ],
+    });
     const page = await browser.newPage();
 
     // Base URL for Indeed

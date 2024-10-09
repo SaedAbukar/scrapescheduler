@@ -2,9 +2,9 @@ require("dotenv").config();
 const { JobPost } = require("../models/JobPost");
 const connectDB = require("../config/db");
 // Import scrapers
-const duuniTori = require("./duuniToriCheerio");
+const duuniTori = require("./duuniTori");
 const indeed = require("./indeed");
-const jobly = require("./joblyCheerio");
+const jobly = require("./jobly");
 const oikotie = require("./oikotie");
 const tePalvelut = require("./tePalvelut");
 console.log("model", JobPost);
@@ -14,10 +14,10 @@ const scrapeJobs = async (city, searchTerm, page) => {
   try {
     const results = await Promise.allSettled([
       duuniTori(city, searchTerm, page),
-      // indeed(city, searchTerm, page),
+      indeed(city, searchTerm, page),
       jobly(city, searchTerm, page),
-      // oikotie(city, searchTerm),
-      // tePalvelut(city, searchTerm),
+      oikotie(city, searchTerm),
+      tePalvelut(city, searchTerm),
     ]);
 
     const successfulResults = results

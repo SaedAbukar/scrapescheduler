@@ -95,7 +95,7 @@ const duuniTori = async (city = "", searchTerm = "", totalPages = 1) => {
     for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
       const url = `${baseURL}?sivu=${pageNum}&${queryParams.join("&")}`;
       console.log(`Navigating to URL: ${url}`);
-      await page.goto(url, { waitUntil: "domcontentloaded" });
+      await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
 
       // Handle cookies modal if necessary
       try {

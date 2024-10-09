@@ -43,7 +43,7 @@ const tePalvelut = async (city = "", searchTerm = "", totalJobs = 10) => {
     console.log(`Navigating to URL: ${url}`);
 
     // Navigate to the job listings page
-    await page.goto(url, { waitUntil: "networkidle2" });
+    await page.goto(url, { waitUntil: "networkidle2", timeout: 60000 });
 
     // Wait for job postings to load
     await page.waitForSelector(".col-xs-12.list-group-item");
@@ -73,7 +73,10 @@ const tePalvelut = async (city = "", searchTerm = "", totalJobs = 10) => {
     const getJobDetails = async (jobPageUrl) => {
       const jobPage = await browser.newPage();
       try {
-        await jobPage.goto(jobPageUrl, { waitUntil: "networkidle2" });
+        await jobPage.goto(jobPageUrl, {
+          waitUntil: "networkidle2",
+          timeout: 60000,
+        });
 
         // Extract job description from "Kuvaus" tab (default tab)
         const description = await jobPage.evaluate(() => {

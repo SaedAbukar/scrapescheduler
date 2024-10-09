@@ -50,7 +50,7 @@ const jobly = async (city = "", searchTerm = "", totalPages = 1) => {
 
       try {
         // Navigate to the target URL
-        await page.goto(url, { waitUntil: "domcontentloaded" });
+        await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
 
         // Wait for job elements to load
         const selector = await page
@@ -143,7 +143,7 @@ const visitJobPage = async (browser, job) => {
   const page = await browser.newPage();
   try {
     // Navigate to the job page
-    await page.goto(job.url, { waitUntil: "domcontentloaded" });
+    await page.goto(job.url, { waitUntil: "domcontentloaded", timeout: 60000 });
 
     // Extract job description and responsibilities from the job page
     const jobDetails = await page.evaluate(() => {

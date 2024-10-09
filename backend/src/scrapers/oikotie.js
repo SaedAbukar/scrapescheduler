@@ -39,6 +39,7 @@ const scrapeOikotieJobs = async (city, searchTerm) => {
   // Navigate to the job listings page
   await page.goto(url, {
     waitUntil: "networkidle2",
+    timeout: 60000,
   });
 
   // Wait for job postings to load
@@ -82,7 +83,10 @@ const scrapeOikotieJobs = async (city, searchTerm) => {
   // Function to extract job description from a job page
   const getJobDetails = async (jobPageUrl) => {
     const jobPage = await browser.newPage();
-    await jobPage.goto(jobPageUrl, { waitUntil: "networkidle2" });
+    await jobPage.goto(jobPageUrl, {
+      waitUntil: "networkidle2",
+      timeout: 60000,
+    });
 
     // Extract the job description
     const description = await jobPage.evaluate(() => {

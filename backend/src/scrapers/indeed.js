@@ -10,7 +10,10 @@ const jobList = [];
 const scrapeJobDescription = async (jobUrl, browser) => {
   try {
     const jobPage = await browser.newPage(); // Open a new tab for each job
-    await jobPage.goto(jobUrl, { waitUntil: "domcontentloaded" });
+    await jobPage.goto(jobUrl, {
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
+    });
 
     const jobDetails = await jobPage.evaluate(() => {
       const title =
@@ -102,7 +105,10 @@ const indeed = async (city = "", searchTerm = "", totalPages = 10) => {
         : `${baseURL}?start=${pageIndex}`;
 
       console.log(`Navigating to URL: ${pageURL}`);
-      await page.goto(pageURL, { waitUntil: "domcontentloaded" });
+      await page.goto(pageURL, {
+        waitUntil: "domcontentloaded",
+        timeout: 60000,
+      });
 
       // Handle the cookies modal (if it appears)
       try {

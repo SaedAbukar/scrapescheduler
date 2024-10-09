@@ -33,7 +33,7 @@ const threehours = "0 */3 * * *";
 // Function to set up and run the cron job
 const startJobScrapingCron = () => {
   // Schedule job scraping every 5 hours
-  cron.schedule(thirtyseconds, async () => {
+  cron.schedule(fivehours, async () => {
     console.log("Running the scheduled scraping job...");
 
     try {

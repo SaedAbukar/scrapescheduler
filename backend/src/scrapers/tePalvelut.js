@@ -11,18 +11,7 @@ const tePalvelut = async (city = "", searchTerm = "", totalJobs = 10) => {
   const baseURL = "https://paikat.te-palvelut.fi/tpt/";
 
   try {
-    // Specify the path to Chromium.
-    // You can dynamically check for the environment (local vs Render)
-    const browserPath =
-      process.env.CHROMIUM_PATH ||
-      "/opt/render/.cache/puppeteer/chrome/linux-129.0.6668.89/chrome-linux/chrome"; // Example path on Render
-
-    // Launch the browser with executable path
-    browser = await puppeteer.launch({
-      headless: true, // Set headless to true if running in server environments
-      executablePath: browserPath, // Path to Chromium
-      args: ["--no-sandbox", "--disable-setuid-sandbox"], // Necessary flags for headless environments
-    });
+    browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
 
     const queryParams = [];
